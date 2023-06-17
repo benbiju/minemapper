@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lat_array">
+        <item>N</item>
+        <item>S</item>
+    </string-array>
+</resources>

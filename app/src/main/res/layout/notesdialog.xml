@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/addButton"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <TextView
+        android:id="@+id/fieldNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0066ff"
+        android:gravity="center"
+        android:text="Field notes"
+        android:textColor="#fff"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="478dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/commentsTextArea"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="bottom"
+            android:hint="Write your fieldnotes here..."
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/notesSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_weight="1"
+            android:background="#0066ff"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+
+</RelativeLayout>

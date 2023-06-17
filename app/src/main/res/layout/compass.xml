@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/measurementTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0066ff"
+        android:gravity="center"
+        android:text="Mine Mapper"
+        android:textColor="#fff"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/outside_imageview"
+        android:src="@drawable/redtri"
+        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/compass"
+        />
+
+    <ImageView
+        android:id="@+id/compass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/compass" />
+
+
+
+    <TextView
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/map"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:background="#000"
+        android:id="@+id/degree" />
+    <TextView
+        android:text="My last known location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#ff0000"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:background="#000"
+        android:id="@+id/latlongwrite" />
+    <TextView
+        android:text="LATITUDE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#999999"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:background="#000"
+         />
+    <TextView
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:background="#000"
+        android:id="@+id/latlong" />
+    <TextView
+        android:text="LONGITUDE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#999999"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:background="#000"
+         />
+    <TextView
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff0000"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:background="#000"
+        android:id="@+id/accuracyCompass" />
+
+    <Button
+        android:id="@+id/goBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:background="#ff0000"
+        android:textStyle="bold"
+        android:layout_marginTop="4dp"
+        android:text="BACK"
+        android:layout_gravity="center"
+        android:gravity="center" />
+
+</LinearLayout>

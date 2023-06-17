@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/addButton"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/measurementTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0066ff"
+        android:gravity="center"
+        android:text="Mine Mapper"
+        android:textColor="#fff"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/title2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:gravity="center"
+        android:text="Add the coordinates"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/latitudeVal"
+            android:layout_width="289dp"
+            android:layout_height="match_parent"
+            android:digits="0123456789:."
+            android:ems="10"
+            android:hint="Latitude in D:M:S "
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
+
+        <Spinner
+            android:id="@+id/latSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:entries="@array/lat_array" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/longitudeVal"
+            android:layout_width="289dp"
+            android:layout_height="match_parent"
+            android:digits="0123456789:."
+            android:ems="10"
+            android:hint="Longitude in D:M:S"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
+
+        <Spinner
+            android:id="@+id/longSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:entries="@array/long_array" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/addPointC"
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add Pillar"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/editPointC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Edit"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/deletePointC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/coordinates"
+        android:layout_width="match_parent"
+        android:layout_height="403dp"
+        android:textSize="16sp"
+        app:fontFamily="sans-serif-condensed" />
+
+    <Button
+        android:id="@+id/createKML"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0066ff"
+        android:text="Create Map"
+        android:textAllCaps="false"
+        android:textColor="#fff" />
+
+
+</LinearLayout>

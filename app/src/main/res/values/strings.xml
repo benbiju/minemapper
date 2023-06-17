@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Mine Mapper 2</string>
+    <string name="title_activity_maps">Mine Mapper 2</string>
+    <string name="dialog_message">
+                \n<justify><b>What is the use of this App?</b>\n\nEven though this is a general-purpose app, the same has been developed to help the
+Geologists during the field work (personal digital assistant). Using this app, one can do
+the following:\n
+1. Create a KML file by inputting coordinates of the boundary pillars of a quarry/mine\n
+2. Create a KML file by capturing the location where you stand. This function is
+developed for mapping the boundary pillars of mine or for capturing the boundary pillars
+of illegal mining area etc. Make sure that the accuracy shown while capturing the
+coordinates is around 3 m.\n
+3. View distance between pillars and area of the map created using this app\n
+4. Take field notes while conducting field work\n
+5. Load KML files generated in KOMPAS app. Send the KML file to mobile and open the
+file using Mine Mapper.\n
+6. This App will help you to check whether the boundary pillars are erected as per the
+coordinates provided by the mineral concession applicant /concession holder. You can
+also identify whether the pillar position has been changed later by the concession
+holder.\n\n<b>How to use this app?</b>\n\nCreate a map\n\nA KML file can be created by clicking Create Map button. There are two options to
+create a map- by inputting coordinates in the degree: minutes: seconds or by capturing
+the location of the coordinates. Buttons are provided to delete a pillar or edit the
+coordinates of pillar. As you capture the coordinates of the pillar, the same will be
+displayed along with the distance from one pillar to another. As soon as you capture a
+minimum of three pillars, area of the polygon is also displayed in ha, sq.m and acre. The
+accuracy of the GPS while capturing the pillar coordinates is also recorded for
+reference.\n\nView a map\n\nAfter creation of the map, the map will be saved in the mine mapper folder of your
+phone. You may not be able to view the saved map if you view the same without
+refreshing your app. However, you can use search facility to locate the map saved. You
+can open more than one map at a time.\n\nAdding field notes\n\nAfter capturing the coordinates, one can write filed note by clicking filed notes button.
+Viewing map details\n\nAfter creating a KML map file, you can open the same by clicking the file which is saved
+in the Mine Mapper folder.\n\nViewing map particulars\n\nYou can view map particulars like coordinates, distance, area, and accuracy of the map
+created by clicking the scale icon.\n\nOpening a KML file generated in KOMPAS app\n\nUse KOMPAS software to generate KMZ (zipped KML file) file of the quarry boundary
+map. KMZ file can be generated using following Menus:\n1) Mining Entity Master&gt; View
+Mining entity or \n2) Mining Entity Location&gt;View in Google Earth or \n3) Mining Entity vs
+Concession &gt;Search for quarry &gt; View Google Earth.
+When you view the map, you get two options 1) Open with Google Earth and 2) Save
+File. Choose Save file. While saving, give the name of the quarry owner to the file you
+saved. Email this file to your own Gmail id. Download the attached file into your mobile
+phone.\nAfter reaching the quarry location, open the Mine Pillar Mapper App. Load the KMZ file.
+Click the pillar icon. You will be able to see the pillar number and co-ordinates.
+Mine Mapper App shows the location where you are standing and the coordinates with
+accuracy. Open the App. Wait a while for getting maximum accuracy (you may attain an
+accuracy of 3-4 m if you wait for a longer period). Keep the Mobile Phone on the top of
+the pillar of your interest and check whether your location is falling right on the top of the
+pillar in the App. There will be a deviation depending on the accuracy of the GPS
+location. If there a deviation in the location, take the screenshot of the screen for future
+reference. The screenshot will give you the coordinates of the location of your mobile
+phone as well as the deviation.\n\n<b>Compass</b>\n\nBy clicking the Compass icon you can use this app as a professional compass. It may
+be noted that the coordinates shown in the Compass screen is the coordinate of the
+location at the time of clicking the compass icon.\n\n<b>Navigation</b>\n\nAfter loading a map, when you click the pillar, you can see the coordinates as well as
+accuracy. While you click, a navigation button will be seen on the map by clicking which
+you can navigate from your current location to that location.\n\n<b>Naming the maps</b>\n\nIf you visit a site and capture the map, then you can name the file by giving applicant’s
+name along with file number. The file name as well as date of creation of file will be
+shown in the map particulars.\n\n<b>Disclaimer</b>\n\nThis app is developed for helping the Geologists during field work. The accuracy of this
+App depends on the accuracy of the GPS of the mobile phone of the user. This App
+shall be used for only preliminary verification. Accurate location can be assessed only
+using dGPS survey.\n\nPlease send your suggestions/remarks about the App in the Mine Mapper WhatsApp
+group\n\nDeveloped by: <b>Biju Sebastian</b> email: bsebastian@gmail.com mobile:
+9447310771\n\nMine Mapper 2.0 | © Biju Sebastian
+                </justify>
+    </string>
+</resources>

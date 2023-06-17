@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mode">
+        <item>Select map creation mode</item>
+        <item>By inputting co-ordinates</item>
+        <item>By capturing co-ordinates of your location</item>
+    </string-array>
+</resources>
