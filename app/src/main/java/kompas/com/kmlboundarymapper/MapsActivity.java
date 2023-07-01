@@ -1,42 +1,46 @@
 package kompas.com.kmlboundarymapper;
 
-import android.*;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Service;
 import android.content.ClipboardManager;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.hardware.GeomagneticField;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.icu.text.DecimalFormat;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaScannerConnection;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Looper;
+import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.text.method.ScrollingMovementMethod;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -57,34 +61,28 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polygon;
 import com.google.maps.android.kml.KmlContainer;
 import com.google.maps.android.kml.KmlLayer;
 import com.google.maps.android.kml.KmlPlacemark;
 
-import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Writer;
-import java.math.RoundingMode;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.jar.*;
+import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -105,6 +103,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Dialog dialog;
     String distanceDescription;
     String pillarsInfo;
+    private static final int REQUEST_CAMERA_PERMISSION = 200;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final String TAG = MapsActivity.class.getSimpleName();
+    private ImageView imageView;
+    private String currentPhotoPath;
+    private String mineName;
+    private static final int DATE_TIME_TEXT_SIZE = 20;
+    private static final int COORDINATES_TEXT_SIZE = 18;
+    private static final int TEXT_MARGIN = 10;
+    private static final int TEXT_COLOR = Color.WHITE;
+    private static final int BACKGROUND_COLOR = Color.BLACK;
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+    //private LocationManager locationManager;
 
     View mapView;
     @Override
@@ -147,6 +159,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                }
 //            }
 //        });
+        Button captureButton = findViewById(R.id.capture_button);
+        imageView = findViewById(R.id.image_view);
+
+        captureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.CAMERA)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    capturePhoto();
+                } else {
+                    ActivityCompat.requestPermissions(MapsActivity.this,
+                            new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+                }
+            }
+        });
+
+      //  locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         final Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -332,6 +361,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String path = getFileName(currFileURI);
                 TextView textView = (TextView) findViewById(R.id.file);
                 textView.setText("Mine Name: " + path);
+
+                mineName = path.replaceAll("\\.kml", "");
+                mineName = path.replaceAll("\\.kmz", "");
                 System.out.println(path);
                 kmlLayer = null;
                 InputStream inputStream;
@@ -427,6 +459,123 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 e.printStackTrace();
             }
         }
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            // Load the captured image from file
+            File imageFile = new File(currentPhotoPath);
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath(),bmOptions);
+            // Add date and time to the image
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String dateTime = dateFormat.format(new Date());
+            String date = dateFormat2.format(new Date());
+            // bitmap = addTextToBitmap(bitmap, dateTime);
+
+            // Add location coordinates to the image
+
+            String latlong = getrec;
+            // Save the modified image
+            // FileOutputStream out = new FileOutputStream(imageFile);
+            //  bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            //    out.flush();
+            //  out.close();
+            Toast.makeText(this, "Image saved with date, time, and coordinates", Toast.LENGTH_SHORT).show();
+            Bitmap editedBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvas = new Canvas(editedBitmap);
+
+            int bitmapWidth = editedBitmap.getWidth();
+            int bitmapHeight = editedBitmap.getHeight();
+
+            float minemapper = bitmapWidth * 0.03f;
+            float dateTimeTextSize = bitmapWidth * 0.04f; // Adjust the multiplier as needed
+            float coordinatesTextSize = bitmapWidth * 0.04f; // Adjust the multiplier as needed
+
+
+
+            float dateTimeX = bitmapWidth * 0.02f;
+            float dateTimeY = bitmapHeight * 0.92f;
+
+            float coordinatesX = bitmapWidth * 0.02f;
+            float coordinatesY = dateTimeY + dateTimeTextSize + TEXT_MARGIN;
+
+            float minemapperX = bitmapWidth * 0.02f;
+            float minemapperY = coordinatesY + coordinatesTextSize + TEXT_MARGIN;
+
+            Paint backgroundPaint = new Paint();
+            backgroundPaint.setColor(Color.BLACK);
+            float backgroundRectHeight = dateTimeTextSize + coordinatesTextSize + minemapper + TEXT_MARGIN * 3; // Adjust the margin as needed
+            canvas.drawRect(0, dateTimeY - dateTimeTextSize - TEXT_MARGIN * 2, bitmapWidth, dateTimeY + backgroundRectHeight, backgroundPaint);
+
+
+            Paint dateTimePaint = new Paint();
+            dateTimePaint.setColor(TEXT_COLOR);
+            dateTimePaint.setTextSize(dateTimeTextSize);
+            dateTimePaint.setTypeface(Typeface.DEFAULT_BOLD);
+
+            Paint coordinatesPaint = new Paint();
+            coordinatesPaint.setColor(TEXT_COLOR);
+            coordinatesPaint.setTextSize(coordinatesTextSize);
+            coordinatesPaint.setTypeface(Typeface.DEFAULT_BOLD);
+
+
+            Paint minemapperPaint = new Paint();
+            minemapperPaint.setColor(TEXT_COLOR);
+            minemapperPaint.setTextSize(minemapper);
+
+
+            // Draw the coordinates text on the bitmap
+            canvas.drawText(latlong, coordinatesX, coordinatesY, coordinatesPaint);
+            canvas.drawText(dateTime, dateTimeX, dateTimeY, dateTimePaint);
+            String mine;
+            if(mineName == null) {
+                mine = "Mine Mapper "+date;
+            }
+            else {
+                mine = mineName + " "+date;
+            }
+            canvas.drawText(mine + " © Mine Mapper",minemapperX,minemapperY,minemapperPaint);
+
+            try {
+                File outputFile = createImageFile();
+                FileOutputStream fos = new FileOutputStream(outputFile);
+                editedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                fos.flush();
+                fos.close();
+
+                // Save the edited image to the gallery
+                ContentResolver contentResolver = this.getContentResolver();
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, "Edited Image");
+                contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                contentValues.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis());
+                contentValues.put(MediaStore.Images.Media.DATA, outputFile.getAbsolutePath());
+                imageFile.delete();
+
+                contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+
+
+                MediaScannerConnection.scanFile(this, new String[]{outputFile.getAbsolutePath()}, null, new MediaScannerConnection.OnScanCompletedListener() {
+                    @Override
+                    public void onScanCompleted(String path, Uri uri) {
+                        // Image scanning is complete
+
+                        // You can perform any additional operations here if needed
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            // Add the image to the gallery
+
+
+            // Refresh the gallery to display the new image
+
+
+            // Display the modified image
+          //  imageView.setImageBitmap(bitmap);
+        }
     }
 
 
@@ -490,6 +639,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mLocationRequest = new LocationRequest();
@@ -650,86 +801,93 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-//    public void createKMLFile(){
-//
-//        Document document = kml.createAndSetDocument().withName("MyMarkers");
-//
-//        String kmlstart = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
-//                "<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n";
-//
-//        String kmlelement ="\t<Placemark>\n" +
-//                "\t<name>Simple placemark</name>\n" +
-//                "\t<description>"+name+"</description>\n" +
-//                "\t<Point>\n" +
-//                "\t\t<coordinates>"+latlon[1]+","+latlon[0]+","+z+ "</coordinates>\n" +
-//                "\t</Point>\n" +
-//                "\t</Placemark>\n";
-//
-//        String kmlend = "</kml>";
-//
-//        ArrayList<String> content = new ArrayList<String>();
-//        content.add(0,kmlstart);
-//        content.add(1,kmlelement);
-//        content.add(2,kmlend);
-//
-//        String kmltest = content.get(0) + content.get(1) + content.get(2);
-//
-//
-//        File testexists = new File(datapath+"/"+name+".kml");
-//        Writer fwriter;
-//
-//        if(!testexists.exists()){
-//            try {
-//
-//                fwriter = new FileWriter(datapath+"/"+name+".kml");
-//                fwriter.write(kmltest);
-//                fwriter.flush();
-//                fwriter.close();
-//            }catch (IOException e1) {
-//                // TODO Auto-generated catch block
-//                e1.printStackTrace();
-//            }
+
+@SuppressLint("MissingPermission")
+private void capturePhoto() {
+    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        File photoFile = null;
+        try {
+            photoFile = createImageFile();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        if (photoFile != null) {
+            Uri photoURI = FileProvider.getUriForFile(this, "kompas.com.kmlboundarymapper.fileprovider", photoFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+}
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File imageFile = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        currentPhotoPath = imageFile.getAbsolutePath();
+        return imageFile;
+    }
+
+
+    private Bitmap addTextToBitmap(Bitmap bitmap, String text) {
+        // Add text to bitmap (e.g., date, time, or coordinates)
+        // Code to add text to the bitmap goes here
+
+        return bitmap;
+    }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+//                == PackageManager.PERMISSION_GRANTED) {
+//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
+//        } else {
+//            ActivityCompat.requestPermissions(this,
+//                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CAMERA_PERMISSION);
 //        }
+//    }
+
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        locationManager.removeUpdates((LocationListener) MapsActivity.this);
+//    }
+
+//    private Location getLastKnownLocation() {
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+//                == PackageManager.PERMISSION_GRANTED) {
+//            Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//            Location locationNetwork = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 //
-//        else{
-//
-//            //schleifenvariable
-//            String filecontent ="";
-//
-//            ArrayList<String> newoutput = new ArrayList<String>();;
-//
-//            try {
-//                BufferedReader in = new BufferedReader(new FileReader(testexists));
-//                while((filecontent = in.readLine()) !=null)
-//
-//                    newoutput.add(filecontent);
-//
-//            } catch (FileNotFoundException e1) {
-//                // TODO Auto-generated catch block
-//                e1.printStackTrace();
-//            } catch (IOException e1) {
-//                // TODO Auto-generated catch block
-//                e1.printStackTrace();
-//            }
-//
-//            newoutput.add(2,kmlelement);
-//
-//            String rewrite ="";
-//            for(String s : newoutput){
-//                rewrite += s;
-//            }
-//
-//            try {
-//                fwriter = new FileWriter(datapath+"/"+name+".kml");
-//                fwriter.write(rewrite);
-//                fwriter.flush();
-//                fwriter.close();
-//            } catch (IOException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
-//
+//            if (locationGPS != null)
+//                return locationGPS;
+//            else if (locationNetwork != null)
+//                return locationNetwork;
+//            else
+//                return null;
 //        }
+//        return null;
+//    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                capturePhoto();
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
 
 }

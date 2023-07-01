@@ -1,17 +1,11 @@
 package kompas.com.kmlboundarymapper;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
-import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
@@ -21,15 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.SettingsClient;
-
-import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 public class Compass extends Activity implements SensorEventListener {
 
@@ -57,9 +42,9 @@ public class Compass extends Activity implements SensorEventListener {
 
         // initialize your android device sensor capabilities
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        if(mSensorManager == null){
+        if (mSensorManager == null) {
             finish();
-            Toast.makeText(getApplicationContext(),"This phone does not support compass", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "This phone does not support compass", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -68,7 +53,7 @@ public class Compass extends Activity implements SensorEventListener {
             @Override
             public void onClick(View v) {
                 // builder.setMessage(R.string.dialog_message).setTitle(R.string.dialog_title);
-               finish();
+                finish();
             }
         });
         Bundle bundle = getIntent().getExtras();
@@ -88,15 +73,15 @@ public class Compass extends Activity implements SensorEventListener {
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
         params.width = width;
-        params.gravity=1;
-        params.height = (int) ((int) height*0.4);
+        params.gravity = 1;
+        params.height = (int) ((int) height * 0.4);
 // existing height is ok as is, no need to edit it
         imageView.setLayoutParams(params);
 
         ImageView imageView1 = findViewById(R.id.outside_imageview);
         LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) imageView1.getLayoutParams();
         params1.width = 100;
-        params1.gravity=1;
+        params1.gravity = 1;
 
         params1.height = 100;
         imageView1.setLayoutParams(params1);
