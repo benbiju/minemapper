@@ -10,7 +10,7 @@
         android:id="@+id/fieldNotes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0066ff"
+        android:background="#c60000"
         android:gravity="center"
         android:text="Field notes"
         android:textColor="#fff"
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="73dp"
             android:layout_weight="1"
-            android:background="#0066ff"
+            android:background="#c60000"
             android:text="Save"
             android:textAllCaps="false"
             android:textColor="#FFFFFF" />

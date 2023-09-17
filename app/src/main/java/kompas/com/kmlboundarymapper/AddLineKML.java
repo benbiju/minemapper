@@ -63,7 +63,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
+public class AddLineKML  extends FragmentActivity implements OnMapReadyCallback {
     private String getrec;
     private String getacc;
     private GoogleMap mMap;
@@ -85,18 +85,18 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
     Dialog editPillarDialog;
     Integer pillarCount;
     String currentAccuracy;
-    String notesString;
+    String notesStringLine;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mapkmlform);
+        setContentView(R.layout.linemapkmlform);
         pillarCount = 0;
         markerList = new ArrayList<>();
         latLongList = new ArrayList<>();
         polygon = "";
-        ActivityCompat.requestPermissions(AddMapKML.this, new String[]{
+        ActivityCompat.requestPermissions(AddLineKML.this, new String[]{
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -119,7 +119,7 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
         }
         mapFragment.getMapAsync(this);
         builder = new AlertDialog.Builder(this);
-        final Button addPoint = (Button) findViewById(R.id.addPoint);
+        final Button addPoint = (Button) findViewById(R.id.addLinePoint);
         addPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,11 +141,11 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
                 AlertDialog alert = builder.create();
                 alert.setTitle("Pillar " + latlong.name + " added");
                 alert.show();
-                TextView coordinates = (TextView) findViewById(R.id.coordinates);
+                TextView coordinates = (TextView) findViewById(R.id.lineCoordinates);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     polygon = latLongList.stream().map(e -> e.toString()).reduce("", String::concat);
                 }
-                polygon = polygon + "\n" + findDistancesBetweenPillars() + "\n" + calculatePolygonArea();
+                polygon = polygon + "\n" + findDistancesBetweenPillars();
                 coordinates.setText(polygon);
                 coordinates.setMovementMethod(new ScrollingMovementMethod());
                 LatLng kmlPoint = new LatLng(latitude, longitude);
@@ -173,14 +173,14 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.createdialog);
-        final Button createKML = (Button) findViewById(R.id.createKML);
+        final Button createKML = (Button) findViewById(R.id.createLineKML);
         createKML.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (latLongList == null || latLongList.isEmpty()) {
                     Toast toast = Toast.makeText(getApplicationContext(), "No points added", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
-                  //  toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
+                   // toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
                     toast.show();
                     return;
                 }
@@ -199,7 +199,7 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
         deletePillarDialog = new Dialog(this);
         deletePillarDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         deletePillarDialog.setContentView(R.layout.deletepillar);
-        final Button deletePoint = (Button) findViewById(R.id.deletePoint);
+        final Button deletePoint = (Button) findViewById(R.id.deleteLinePoint);
         deletePoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,8 +236,8 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             deletePolygon = latLongList.stream().map(e -> e.toString()).reduce("", String::concat);
                         }
-                        deletePolygon = deletePolygon + "\n" + findDistancesBetweenPillars() + "\n" + calculatePolygonArea();
-                        TextView coordinates = (TextView) findViewById(R.id.coordinates);
+                        deletePolygon = deletePolygon + "\n" + findDistancesBetweenPillars();
+                        TextView coordinates = (TextView) findViewById(R.id.lineCoordinates);
                         coordinates.setText(deletePolygon);
                         deletePillarDialog.dismiss();
                     }
@@ -250,7 +250,7 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
         Dialog editPillarPosDialog = new Dialog(this);
         editPillarPosDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         editPillarPosDialog.setContentView(R.layout.editpillarpos);
-        final Button editPoint = (Button) findViewById(R.id.editPoint);
+        final Button editPoint = (Button) findViewById(R.id.editLinePoint);
         editPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,7 +269,7 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
                         if (toBeEditedPillar == null) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Pillar number not found", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER, 0, 0);
-                            //toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
+                         //   toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
 
                             toast.show();
                         }
@@ -329,8 +329,8 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             editPolygon = latLongList.stream().map(e -> e.toString()).reduce("", String::concat);
                         }
-                        editPolygon = editPolygon + "\n" + findDistancesBetweenPillars() + "\n" + calculatePolygonArea();
-                        TextView coordinates = (TextView) findViewById(R.id.coordinates);
+                        editPolygon = editPolygon + "\n" + findDistancesBetweenPillars();
+                        TextView coordinates = (TextView) findViewById(R.id.lineCoordinates);
                         coordinates.setText(editPolygon);
                         editPillarPosDialog.dismiss();
                     }
@@ -341,7 +341,7 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
         Dialog notesDialog = new Dialog(this);
         notesDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         notesDialog.setContentView(R.layout.notesdialog);
-        final Button notes = (Button) findViewById(R.id.comments);
+        final Button notes = (Button) findViewById(R.id.lineComments);
         notes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -351,7 +351,7 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
                     @Override
                     public void onClick(View v) {
                         EditText notesSection = (EditText) notesDialog.findViewById(R.id.commentsTextArea);
-                        notesString=notesSection.getText().toString();
+                        notesStringLine=notesSection.getText().toString();
                         notesDialog.dismiss();
                     }
                 });
@@ -381,7 +381,7 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
         return distancesString.toString();
     }
     static double haversineInMeters(double lat1, double lon1,
-                            double lat2, double lon2)
+                                    double lat2, double lon2)
     {
         // distance between latitudes and longitudes
         double dLat = Math.toRadians(lat2 - lat1);
@@ -401,11 +401,7 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
         return (rad * c)*1000;
     }
 
-     public String calculatePolygonArea()
-    {
-       double area=ComputeSignedArea(latLongList);
-       return "Area: "+String.format("%.5f",Math.abs(area)/10000)+"ha | "+String.format("%.5f",Math.abs(area))+"sq.m | "+String.format("%.5f",Math.abs(area)/4047)+"acres";
-    }
+
 
     private static double EARTH_RADIUS = 6371009;
 
@@ -455,7 +451,6 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
             MapPoint mapPoint = new MapPoint(latlong.lat,latlong.lon,latlong.accuracy);
             mapPoint.setName(latlong.name);
             kml.addMark(mapPoint);
-
             pillarsInfo.append(latlong.name+":\nLat: "+convertLatitud(latlong.lat)+"\nLon: "+convertLongitude(latlong.lon)+"\nAcc: "+latlong.accuracy+"m\n\n");
             mapPoints.add(mapPoint);
             count++;
@@ -464,16 +459,13 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
         if(fileName.getText().toString().isEmpty()) {
             return;
         }
-        if(latLongList.size()>0){
-            mapPoints.add(latLongList.get(0));
-        }
-        pillarsInfo.append(calculatePolygonArea()+"\n\n");
-        if(notesString!=null&&!notesString.isEmpty()){
-            pillarsInfo.append("Field Notes\n"+notesString+"\n\n");
+
+        if(notesStringLine!=null&&!notesStringLine.isEmpty()){
+            pillarsInfo.append("Field Notes\n"+notesStringLine+"\n\n");
         }
         pillarsInfo.append("Map name: "+fileName.getText().toString()+" | created on: "+ LocalDate.now()+ " "+LocalDateTime.now().getHour()+":"+LocalDateTime.now().getMinute()+"\n\n");
         pillarsInfo.append("Mine Mapper | © Biju Sebastian 2023\n\n");
-        kml.addPath(mapPoints,"Path",findDistancesBetweenPillars(),calculatePolygonArea(),pillarsInfo.toString());
+        kml.addLine(mapPoints,"Path",findDistancesBetweenPillars(),"Line String KML",pillarsInfo.toString());
         String rootPath = Environment.getExternalStorageDirectory()
                 .getAbsolutePath() + "/Download/MineMapper/";
         File root = new File(rootPath);
@@ -487,17 +479,17 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
                     .setPositiveButton("Close", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Dialog newDialog = new Dialog(AddMapKML.this);
+                            Dialog newDialog = new Dialog(AddLineKML.this);
                             newDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                             newDialog.setContentView(R.layout.createdialog);
-                            final Button createKML = (Button) findViewById(R.id.createKML);
+                            final Button createKML = (Button) findViewById(R.id.createLineKML);
                             createKML.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     if(latLongList == null || latLongList.isEmpty()) {
                                         Toast toast = Toast.makeText(getApplicationContext(),"No points added",Toast.LENGTH_SHORT);
                                         toast.setGravity(Gravity.CENTER, 0, 0);
-                                    //    toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
+                                        //toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
                                         toast.show();
                                         return;
                                     }
@@ -647,7 +639,6 @@ public class AddMapKML  extends FragmentActivity implements OnMapReadyCallback {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm aa");
         String strDate= formatter.format(date);
-
 
         if(!gpsManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 

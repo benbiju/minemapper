@@ -1,5 +1,7 @@
 package kompas.com.kmlboundarymapper;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -61,9 +63,38 @@ public class KML {
             accuracy.appendChild(doc.createTextNode(mark.getAccuracy()));
             placemark.appendChild(accuracy);
         }
+//issue is here
+        Element desc = doc.createElement("description");
+        desc.appendChild(doc.createTextNode(mark.getLatitude() + ", " + mark.getLongitude() + ", Acc: "+mark.getAccuracy()+"m\n"));
+        placemark.appendChild(desc);
+
+        Element point = doc.createElement("Point");
+        placemark.appendChild(point);
+
+        Element coords = doc.createElement("coordinates");
+        coords.appendChild(doc.createTextNode(mark.getLongitude() + ", " + mark.getLatitude()));
+        point.appendChild(coords);
+    }
+
+    public void addMarker(MapPoint mark,String pillarsInfo) {
+        Element placemark = doc.createElement("Placemark");
+        folder.appendChild(placemark);
+
+
+        Element name = doc.createElement("name");
+        name.appendChild(doc.createTextNode(mark.getName()));
+        placemark.appendChild(name);
+
+        if(mark.getAccuracy()!=null) {
+            Element accuracy = doc.createElement("accuracy");
+            accuracy.appendChild(doc.createTextNode(mark.getAccuracy()));
+            placemark.appendChild(accuracy);
+        }
+
+
 
         Element desc = doc.createElement("description");
-        desc.appendChild(doc.createTextNode(mark.getLatitude() + ", " + mark.getLongitude() + ", Acc: "+mark.getAccuracy()+"\n"));
+        desc.appendChild(doc.createTextNode(mark.getLatitude() + ", " + mark.getLongitude() + ", Acc: "+mark.getAccuracy()+"m\n"));
         placemark.appendChild(desc);
 
         Element point = doc.createElement("Point");
@@ -97,6 +128,12 @@ public class KML {
         Element style = doc.createElement("Style");
         Element linestyle = doc.createElement("LineStyle");
         Element polystyle = doc.createElement("PolyStyle");
+        Element iconStyle = doc.createElement("IconStyle");
+        Element icon = doc.createElement("Icon");
+        Element href = doc.createElement("href");
+        href.appendChild(doc.createTextNode("https://cdn-icons-png.flaticon.com/512/25/25613.png")); // Replace with your image URL
+        icon.appendChild(href);
+        iconStyle.appendChild(icon);
         Element fill = doc.createElement("fill");
         fill.appendChild(doc.createTextNode("0"));
         polystyle.appendChild(fill);
@@ -105,6 +142,7 @@ public class KML {
         linestyle.appendChild(color);
         style.appendChild(polystyle);
         style.appendChild(linestyle);
+        style.appendChild(iconStyle);
         placemark.appendChild(style);
 
         Element polygon = doc.createElement("Polygon");
@@ -114,14 +152,6 @@ public class KML {
         Element lineString = doc.createElement("LinearRing");
         outerBoundary.appendChild(lineString);
 
-//
-//        Element extrude = doc.createElement("extrude");
-//        extrude.appendChild(doc.createTextNode("1"));
-//        lineString.appendChild(extrude);
-//
-//        Element tesselate = doc.createElement("tesselate");
-//        tesselate.appendChild(doc.createTextNode("1"));
-//        lineString.appendChild(tesselate);
 
         Element altitudeMode = doc.createElement("altitudeMode");
         altitudeMode.appendChild(doc.createTextNode("absolute"));
@@ -137,6 +167,60 @@ public class KML {
         coords.appendChild(doc.createTextNode(points));
         lineString.appendChild(coords);
     }
+
+    public void addLine(List<MapPoint> path, String pathName,String distance,String area, String pillarsInfo) {
+        Element placemark = doc.createElement("Placemark");
+        folder.appendChild(placemark);
+
+        if(pathName != null) {
+            Element name = doc.createElement("name");
+            name.appendChild(doc.createTextNode(pathName));
+            placemark.appendChild(name);
+        }
+        if(distance!= null && area!= null) {
+            Element description = doc.createElement("description");
+            description.appendChild(doc.createTextNode("MineMapper#"+distance+"#"+area+"#"+pillarsInfo));
+            placemark.appendChild(description);
+        }
+
+        Element style = doc.createElement("Style");
+        Element linestyle = doc.createElement("LineStyle");
+        Element color = doc.createElement("color");
+        color.appendChild(doc.createTextNode("2986cc"));
+        Element iconStyle = doc.createElement("IconStyle");
+        Element icon = doc.createElement("Icon");
+        Element href = doc.createElement("href");
+        href.appendChild(doc.createTextNode("https://cdn-icons-png.flaticon.com/512/25/25613.png")); // Replace with your image URL
+        icon.appendChild(href);
+        iconStyle.appendChild(icon);
+        linestyle.appendChild(color);
+        style.appendChild(linestyle);
+        style.appendChild(iconStyle);
+        placemark.appendChild(style);
+
+
+        Element lineString = doc.createElement("LineString");
+        placemark.appendChild(lineString);
+
+//        Element altitudeMode = doc.createElement("altitudeMode");
+//        altitudeMode.appendChild(doc.createTextNode("absolute"));
+//        lineString.appendChild(altitudeMode);
+
+        Element coords = doc.createElement("coordinates");
+        String points = "";
+        ListIterator<MapPoint> itr = path.listIterator();
+        while(itr.hasNext()) {
+            MapPoint p = itr.next();
+            points += p.getLongitude() + "," + p.getLatitude() + ","+ "\n";
+        }
+        if (!points.isEmpty()) {
+            points = points.substring(0, points.length() - 1); // Remove the last newline character
+        }
+
+        coords.appendChild(doc.createTextNode(points));
+        lineString.appendChild(coords);
+    }
+
 
     /**
      * Write this KML object to a file.

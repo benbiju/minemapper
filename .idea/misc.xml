@@ -6,11 +6,15 @@
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/drawable/launch_screen.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/drawable/roundcorner.xml" value="0.38177083333333334" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/activity_maps.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/addMarkerDesc.xml" value="0.2046875" />
+        <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/addmarkerdesc.xml" value="0.3625" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/compass.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/createDialog.xml" value="0.1" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/createXmlOption.xml" value="0.10764944275582573" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/createdialog.xml" value="0.2128623188405797" />
-        <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/createkmloptions.xml" value="0.1" />
+        <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/createkmloptions.xml" value="0.15" />
+        <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/deleteMarkerDesc.xml" value="0.15572916666666667" />
+        <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/deletemarkerdesc.xml" value="0.15572916666666667" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/deletepillar.xml" value="0.1" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/distanceDialogBox" value="0.2128623188405797" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/distanceDialogBox.xml" value="0.2128623188405797" />
@@ -20,9 +24,13 @@
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/editpillarPos.xml" value="0.19972826086956522" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/editpillarinput.xml" value="0.19972826086956522" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/editpillarpos.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/gyro..xml" value="0.2046875" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/kmlform.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/linemapkmlform.xml" value="0.2" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/mapkmlform.xml" value="0.12310030395136778" />
+        <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/markermapkmlform.xml" value="0.2046875" />
         <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/notesdialog.xml" value="0.1762917933130699" />
+        <entry key="..\:/Users/benbi/Downloads/KmlBoundaryMapper/app/src/main/res/layout/slope.xml" value="0.3625" />
       </map>
     </option>
   </component>

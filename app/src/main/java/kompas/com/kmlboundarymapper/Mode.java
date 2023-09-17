@@ -27,35 +27,52 @@ public class Mode extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createkmloptions);
-        final Spinner mode = (Spinner) findViewById(R.id.mode);
-        mode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+        ImageView imageView1 = findViewById(R.id.auto_saving);
+        ImageView imageView2 = findViewById(R.id.manual_saving);
+        ImageView imageView3 = findViewById(R.id.manual_saving_marker);
+        ImageView imageView4 = findViewById(R.id.manual_saving_line);
+
+        imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if(position== 1) {
+            public void onClick(View v) {
                     Intent i;
                     i = new Intent(Mode.this, AddKML.class);
                     startActivity(i);
                     finish();
-                }
-                if(position == 2) {
-                    Intent i;
-                    i = new Intent(Mode.this, AddMapKML.class);
-                    startActivity(i);
-                    finish();
-                }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
         });
 
+        imageView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Intent i;
+                    i = new Intent(Mode.this, AddLineKML.class);
+                    startActivity(i);
+                    finish();
+            }
+        });
 
-                //startActivity(new Intent(MapsActivity.this,Compass.class));
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i;
+                i = new Intent(Mode.this, AddMapKML.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
-
+        imageView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i;
+                i = new Intent(Mode.this, AppMarkerKML.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
     }
 

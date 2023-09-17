@@ -3,32 +3,52 @@
     android:id="@+id/addButton"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/measurementTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0066ff"
+        android:background="#c60000"
         android:gravity="center"
-        android:text="Mine Mapper"
+        android:text="Mine Mapper 3.0"
         android:textColor="#fff"
         android:textSize="22dp"
         android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/mode"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:entries="@array/mode"
-            android:spinnerMode="dropdown" />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/auto_saving"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+
+        android:src="@drawable/polygoninput" />
+
+    <ImageView
+        android:id="@+id/manual_saving_marker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/pointcapture" />
+
+    <ImageView
+        android:id="@+id/manual_saving_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/linecapture" />
+
+    <ImageView
+        android:id="@+id/manual_saving"
+        android:layout_width="wrap_content"
+        android:layout_height="172dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/polygoncatpure" />
+
 
 
 </LinearLayout>

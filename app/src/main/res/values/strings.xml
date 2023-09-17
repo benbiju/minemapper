@@ -1,63 +1,26 @@
 <resources>
-    <string name="app_name">Mine Mapper 2</string>
-    <string name="title_activity_maps">Mine Mapper 2</string>
-    <string name="dialog_message">
-                \n<justify><b>What is the use of this App?</b>\n\nEven though this is a general-purpose app, the same has been developed to help the
-Geologists during the field work (personal digital assistant). Using this app, one can do
-the following:\n
-1. Create a KML file by inputting coordinates of the boundary pillars of a quarry/mine\n
-2. Create a KML file by capturing the location where you stand. This function is
-developed for mapping the boundary pillars of mine or for capturing the boundary pillars
-of illegal mining area etc. Make sure that the accuracy shown while capturing the
-coordinates is around 3 m.\n
-3. View distance between pillars and area of the map created using this app\n
-4. Take field notes while conducting field work\n
-5. Load KML files generated in KOMPAS app. Send the KML file to mobile and open the
-file using Mine Mapper.\n
-6. This App will help you to check whether the boundary pillars are erected as per the
-coordinates provided by the mineral concession applicant /concession holder. You can
-also identify whether the pillar position has been changed later by the concession
-holder.\n\n<b>How to use this app?</b>\n\nCreate a map\n\nA KML file can be created by clicking Create Map button. There are two options to
-create a map- by inputting coordinates in the degree: minutes: seconds or by capturing
-the location of the coordinates. Buttons are provided to delete a pillar or edit the
-coordinates of pillar. As you capture the coordinates of the pillar, the same will be
-displayed along with the distance from one pillar to another. As soon as you capture a
-minimum of three pillars, area of the polygon is also displayed in ha, sq.m and acre. The
-accuracy of the GPS while capturing the pillar coordinates is also recorded for
-reference.\n\nView a map\n\nAfter creation of the map, the map will be saved in the mine mapper folder of your
-phone. You may not be able to view the saved map if you view the same without
-refreshing your app. However, you can use search facility to locate the map saved. You
-can open more than one map at a time.\n\nAdding field notes\n\nAfter capturing the coordinates, one can write filed note by clicking filed notes button.
-Viewing map details\n\nAfter creating a KML map file, you can open the same by clicking the file which is saved
-in the Mine Mapper folder.\n\nViewing map particulars\n\nYou can view map particulars like coordinates, distance, area, and accuracy of the map
-created by clicking the scale icon.\n\nOpening a KML file generated in KOMPAS app\n\nUse KOMPAS software to generate KMZ (zipped KML file) file of the quarry boundary
-map. KMZ file can be generated using following Menus:\n1) Mining Entity Master&gt; View
-Mining entity or \n2) Mining Entity Location&gt;View in Google Earth or \n3) Mining Entity vs
-Concession &gt;Search for quarry &gt; View Google Earth.
-When you view the map, you get two options 1) Open with Google Earth and 2) Save
-File. Choose Save file. While saving, give the name of the quarry owner to the file you
-saved. Email this file to your own Gmail id. Download the attached file into your mobile
-phone.\nAfter reaching the quarry location, open the Mine Pillar Mapper App. Load the KMZ file.
-Click the pillar icon. You will be able to see the pillar number and co-ordinates.
-Mine Mapper App shows the location where you are standing and the coordinates with
-accuracy. Open the App. Wait a while for getting maximum accuracy (you may attain an
-accuracy of 3-4 m if you wait for a longer period). Keep the Mobile Phone on the top of
-the pillar of your interest and check whether your location is falling right on the top of the
-pillar in the App. There will be a deviation depending on the accuracy of the GPS
-location. If there a deviation in the location, take the screenshot of the screen for future
-reference. The screenshot will give you the coordinates of the location of your mobile
-phone as well as the deviation.\n\n<b>Compass</b>\n\nBy clicking the Compass icon you can use this app as a professional compass. It may
-be noted that the coordinates shown in the Compass screen is the coordinate of the
-location at the time of clicking the compass icon.\n\n<b>Navigation</b>\n\nAfter loading a map, when you click the pillar, you can see the coordinates as well as
-accuracy. While you click, a navigation button will be seen on the map by clicking which
-you can navigate from your current location to that location.\n\n<b>Naming the maps</b>\n\nIf you visit a site and capture the map, then you can name the file by giving applicant’s
-name along with file number. The file name as well as date of creation of file will be
-shown in the map particulars.\n\n<b>Disclaimer</b>\n\nThis app is developed for helping the Geologists during field work. The accuracy of this
-App depends on the accuracy of the GPS of the mobile phone of the user. This App
-shall be used for only preliminary verification. Accurate location can be assessed only
-using dGPS survey.\n\nPlease send your suggestions/remarks about the App in the Mine Mapper WhatsApp
-group\n\nDeveloped by: <b>Biju Sebastian</b> email: bsebastian@gmail.com mobile:
-9447310771\n\nMine Mapper 2.0 | © Biju Sebastian
-                </justify>
+    <string name="app_name">Mine Mapper 3</string>
+    <string name="title_activity_maps">Mine Mapper 3</string>
+    <string name="dialog_message"><justify><b>About Mine Mapper 3.0</b>
+            \n\nThe Mine Mapper App, designed and developed by an experienced geologist with over 30 years in the field, caters to the specific needs of geologists and mining engineers in the mining sector. It serves as a valuable Android application for tasks related to mineral administration, including the collection of field data and the verification of mining-related information provided by miners.
+ While initially intended for geologists, this versatile app is accessible to a wider audience, enabling anyone using an Android device to efficiently gather point, line, and polygon data directly from the field. Version 3.0 brings substantial improvements, including the introduction of geotagged photos, a clinometer for slope measurements, and comprehensive map creation capabilities for points, lines, and polygons. Essentially, this app functions as a Geographic Information System (GIS) tailored for geologists working within the mining sector.
+
+        </justify>
+
+       \n\n <b>Developer Information</b>:\n\n
+•	<b>Developer Name</b>: Biju Sebastian\n
+•	<b>Previous Positions</b>: Senior Geologist/ Deputy Director (Department of Mining and Geology, Government of Kerala)\n
+•	<b>Current Address</b>: Kunnamkott House, Manakad PO, Kerala, India, Pin: 685608\n
+•	<b>Developer Email</b>: bsebastian@gmail.com\n
+•	<b>Contact Number</b>: +91 9447310771\n
+•	<b>Feedback Email</b>: theminemapper@gmail.com\n
+•	<b>Website</b>: www.minemapper.in\n
+        •	<b>Release Date</b>: 17th September 2023\n\n<justify><b>Disclaimer</b>\n\nThe Mine Mapper App is provided for preliminary mapping purposes only. While every effort has been made to ensure accuracy, the developer accepts no responsibility for inadvertent errors or omissions. The responsibility for the use of this application and the interpretation of its output lies solely with the user.
+
+For precise and accurate mapping, it is recommended to employ professional-grade equipment such as Differential Global Positioning System (dGPS) devices. The Mine Mapper App should not be used as a substitute for such professional-grade tools in critical or high-stakes applications.
+
+By using this app, you agree to the terms of this disclaimer.
+
+        </justify>
     </string>
 </resources>

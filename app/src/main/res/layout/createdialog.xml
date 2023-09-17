@@ -9,10 +9,10 @@
         android:id="@+id/measurementTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
+        android:background="#c60000"
         android:gravity="center"
         android:text="Enter the file name"
-        android:textColor="#000"
+        android:textColor="#fff"
         android:textSize="18dp" />
 
     <LinearLayout
@@ -26,8 +26,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:ems="10"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_-+"
+            android:inputType="textFilter"
             android:hint="File name"
-            android:inputType="textPersonName" />
+             />
 
         <Button
             android:id="@+id/createKMLButton"

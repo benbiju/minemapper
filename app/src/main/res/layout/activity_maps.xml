@@ -26,6 +26,8 @@ tools:context=".MainActivity">
         tools:context=".MapsActivity" />
 
 
+
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -41,12 +43,23 @@ tools:context=".MainActivity">
             android:id="@+id/measurementTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#0066ff"
+            android:background="#c60000"
             android:gravity="center"
-            android:text="Mine Mapper"
+            android:text="MINE MAPPER 3.0"
             android:textColor="#fff"
             android:textSize="20dp"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/measurementSiteTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000"
+            android:gravity="center"
+            android:text="www.minemapper.in"
+            android:autoLink="web"
+            android:textColor="#c60000"
+            android:textSize="20dp"
+             />
     <TextView
         android:text=""
         android:layout_width="match_parent"
@@ -57,19 +70,13 @@ tools:context=".MainActivity">
         android:id="@+id/file" />
 
 
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-            android:text=""
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="#fff"
-            android:id="@+id/area"
-            android:gravity="center"
-            android:textSize="16dp"/>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -116,6 +123,16 @@ tools:context=".MainActivity">
 </LinearLayout>
 
     <ImageButton
+        android:id="@+id/findMarker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/map"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/roundcorner"
+        android:src="@drawable/newpillar" />
+
+    <ImageButton
         android:id="@+id/compass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -136,15 +153,54 @@ tools:context=".MainActivity">
         android:src="@drawable/roundscale" />
 
     <ImageButton
-        android:id="@+id/findMarker"
+        android:id="@+id/capture_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/map"
         android:layout_marginLeft="5dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="230dp"
         android:background="@drawable/roundcorner"
+        android:src="@drawable/camera" />
 
-        android:src="@drawable/newpillar" />
+    <ImageButton
+        android:id="@+id/gyro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/map"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="290dp"
+        android:background="@drawable/roundcorner"
+        android:src="@drawable/slope" />
+
+<!--    <SurfaceView-->
+<!--        android:id="@+id/cameraPreview"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        />-->
+
+    <ImageButton
+        android:id="@+id/share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/map"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="350dp"
+        android:background="@drawable/roundcorner"
+        android:src="@drawable/sharebutton" />
+
+    <ImageButton
+        android:id="@+id/help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/map"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="410dp"
+        android:background="@drawable/roundcorner"
+        android:src="@drawable/help" />
+
+
+
+
 
     <TextView
         android:id="@+id/helptext"
@@ -152,8 +208,7 @@ tools:context=".MainActivity">
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/map"
         android:background="#000"
-        android:text="v2.0"
-        android:textColor="#fff"
+        android:textColorLink="#fff"
         android:textSize="12dp" />
 
 
@@ -163,9 +218,32 @@ tools:context=".MainActivity">
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/map"
         android:gravity="right"
-        android:text="© Biju Sebastian 2021 "
+        android:text="© Biju Sebastian 2023 "
         android:textColor="#ffff"
         android:textSize="14dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        tools:context=".MainActivity">
+
+        <!--        <Button-->
+        <!--            android:id="@+id/capture_button"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Capture" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/image_view"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_below="@id/capture_button"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:scaleType="centerCrop" />-->
+
+
+    </RelativeLayout>
 </RelativeLayout>
 
     <RelativeLayout
@@ -182,11 +260,11 @@ tools:context=".MainActivity">
 
             <Button
                 android:id="@+id/addKML"
-                android:layout_width="109dp"
+                android:layout_width="117dp"
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
                 android:layout_weight="1"
-                android:background="#0066ff"
+                android:background="#c60000"
                 android:shadowColor="#FBFAFA"
                 android:text="Create Map"
                 android:textAllCaps="false"
@@ -195,55 +273,46 @@ tools:context=".MainActivity">
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="wrap_content"
+                android:layout_width="110dp"
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
                 android:layout_weight="1"
-                android:background="#0066ff"
+                android:background="#c60000"
                 android:text="Load Map"
                 android:textAllCaps="false"
                 android:textColor="#ffff"
                 android:textSize="18dp" />
 
             <Button
-                android:id="@+id/help"
-                android:layout_width="wrap_content"
+                android:id="@+id/share_map"
+                android:layout_width="115dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:layout_weight="1"
-                android:background="#0066ff"
-                android:onClick="showpopup"
+                android:background="#c60000"
+                android:text="Share Map"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18dp" />
+            <Button
+                android:id="@+id/help_external"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_weight="1"
+                android:background="#c60000"
                 android:text="Help"
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="18dp" />
 
+
         </LinearLayout>
 
 
     </RelativeLayout>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        tools:context=".MainActivity">
 
-        <Button
-            android:id="@+id/capture_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Capture" />
-
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/capture_button"
-            android:layout_marginTop="16dp"
-            android:scaleType="centerCrop" />
-
-    </RelativeLayout>
 </RelativeLayout>
 

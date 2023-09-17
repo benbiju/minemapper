@@ -6,37 +6,36 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/measurementTitle"
+        android:id="@+id/measurementMarkerTitles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#c60000"
+        android:background="#F8F4F4"
         android:gravity="center"
-        android:text="Measurements"
-        android:textColor="#fff"
+        android:text="Delete marker"
+        android:textColor="#000"
         android:textSize="18dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="401dp"
+        android:layout_height="61dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/distanceTextView"
+        <EditText
+            android:id="@+id/deleteMarkerText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textColor="#000000"
-            android:textIsSelectable="true"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:ems="10"
+            android:hint="Marker Description"
+            android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="(Long press to copy this content)"
-        android:textColor="#006EC6" />
+        <Button
+            android:id="@+id/deleteMarkerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="ok" />
+    </LinearLayout>
 
 
 </LinearLayout>

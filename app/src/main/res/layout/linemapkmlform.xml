@@ -109,15 +109,15 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/addPoint"
-                    android:layout_width="108dp"
+                    android:id="@+id/addLinePoint"
+                    android:layout_width="152dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:text="Add Pillar"
+                    android:text="Add Marker"
                     android:textAllCaps="false" />
 
                 <Button
-                    android:id="@+id/editPoint"
+                    android:id="@+id/editLinePoint"
                     android:layout_width="71dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -126,7 +126,7 @@
                     android:textAllCaps="false" />
 
                 <Button
-                    android:id="@+id/deletePoint"
+                    android:id="@+id/deleteLinePoint"
                     android:layout_width="67dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -135,16 +135,18 @@
                     android:textAllCaps="false" />
 
                 <Button
-                    android:id="@+id/comments"
+                    android:id="@+id/lineComments"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Field Notes"
                     android:textAllCaps="false" />
+
+
             </LinearLayout>
 
             <TextView
-                android:id="@+id/coordinates"
+                android:id="@+id/lineCoordinates"
                 android:layout_width="match_parent"
                 android:layout_height="107dp"
                 android:background="#ffff"
@@ -154,11 +156,11 @@
                 app:fontFamily="sans-serif-condensed" />
 
             <Button
-                android:id="@+id/createKML"
+                android:id="@+id/createLineKML"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#c60000"
-                android:text="Create Polygon Map"
+                android:text="Create Line Map"
                 android:textAllCaps="false"
                 android:textColor="#fff" />
 

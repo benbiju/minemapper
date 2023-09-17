@@ -10,7 +10,7 @@
         android:id="@+id/measurementTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0066ff"
+        android:background="#c60000"
         android:gravity="center"
         android:text="Mine Mapper"
         android:textColor="#fff"
@@ -114,8 +114,8 @@
         android:id="@+id/createKML"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0066ff"
-        android:text="Create Map"
+        android:background="#c60000"
+        android:text="Create Co-ordinates Map"
         android:textAllCaps="false"
         android:textColor="#fff" />
 

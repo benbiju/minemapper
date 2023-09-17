@@ -16,7 +16,14 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission." />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BODY_SENSORS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-feature android:name="android.hardware.sensor.gyroscope" android:required="true" />
+
+
 
 
 
@@ -80,11 +87,32 @@
 
         </activity>
         <activity
-            android:name=".Mode"
+            android:name=".AppMarkerKML"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait">
 
         </activity>
+        <activity
+            android:name=".AddLineKML"
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".Mode"
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait">
+
+
+
+        </activity>
+
+        <activity
+            android:name=".Slope"
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait">
+        </activity>
+
     </application>
 
 </manifest>

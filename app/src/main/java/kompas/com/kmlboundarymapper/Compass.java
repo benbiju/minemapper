@@ -48,14 +48,6 @@ public class Compass extends Activity implements SensorEventListener {
         }
 
 
-        final Button goBack = (Button) findViewById(R.id.goBack);
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // builder.setMessage(R.string.dialog_message).setTitle(R.string.dialog_title);
-                finish();
-            }
-        });
         Bundle bundle = getIntent().getExtras();
 
 //Extract the data

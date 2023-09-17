@@ -138,10 +138,10 @@ public class MapPoint {
     @Override
     public String toString() {
         if(accuracy==null) {
-            return "Pillar "+ name + ": " + MapsActivity.convertLatitud(lat) + ", " + MapsActivity.convertLongitude(lon)+"\n";
+            return name + ": " + MapsActivity.convertLatitud(lat) + ", " + MapsActivity.convertLongitude(lon)+"\n";
         }
         else {
-            return "Pillar "+ name + ": " + MapsActivity.convertLatitud(lat) + ", " + MapsActivity.convertLongitude(lon)+", Acc: "+accuracy+"\n";
+            return name + ": " + MapsActivity.convertLatitud(lat) + ", " + MapsActivity.convertLongitude(lon)+", Acc: "+accuracy+"m\n";
         }
     }
 

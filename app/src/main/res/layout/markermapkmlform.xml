@@ -21,7 +21,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="208dp"
+            android:layout_marginBottom="93dp"
             tools:context=".MapsActivity" />
 
 
@@ -43,7 +43,7 @@
                     android:layout_height="match_parent"
                     android:background="#c60000"
                     android:gravity="center"
-                    android:text="Mine Mapper"
+                    android:text="Mine Mapper 3.0"
                     android:textColor="#fff"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -109,24 +109,15 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/addPoint"
-                    android:layout_width="108dp"
+                    android:id="@+id/addMarkerPoint"
+                    android:layout_width="201dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:text="Add Pillar"
+                    android:text="Add Marker"
                     android:textAllCaps="false" />
 
                 <Button
-                    android:id="@+id/editPoint"
-                    android:layout_width="71dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_weight="1"
-                    android:text="Edit"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/deletePoint"
+                    android:id="@+id/deleteMarkerPoint"
                     android:layout_width="67dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -135,30 +126,22 @@
                     android:textAllCaps="false" />
 
                 <Button
-                    android:id="@+id/comments"
+                    android:id="@+id/markerComments"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Field Notes"
                     android:textAllCaps="false" />
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/coordinates"
-                android:layout_width="match_parent"
-                android:layout_height="107dp"
-                android:background="#ffff"
-                android:scrollbars="vertical"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:fontFamily="sans-serif-condensed" />
 
             <Button
-                android:id="@+id/createKML"
+                android:id="@+id/createMarkerKML"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#c60000"
-                android:text="Create Polygon Map"
+                android:text="Create Point Map"
                 android:textAllCaps="false"
                 android:textColor="#fff" />
 

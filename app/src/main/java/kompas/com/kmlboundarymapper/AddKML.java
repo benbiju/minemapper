@@ -68,13 +68,13 @@ public class AddKML extends Activity {
                     if(latitude==0) {
                         Toast toast = Toast.makeText(getApplicationContext(),"Invalid latitude",Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
+                        //toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
                         toast.show();
                     }
                     if(longitude==0) {
                         Toast toast = Toast.makeText(getApplicationContext(),"Invalid longitude",Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
+                        //toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
                         toast.show();                    }
                     return;
                 }
@@ -110,9 +110,9 @@ public class AddKML extends Activity {
             @Override
             public void onClick(View v) {
                 if(latLongList == null || latLongList.isEmpty()) {
-                    Toast toast = Toast.makeText(getApplicationContext(),"No pillars added",Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(),"No points added",Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
+                    //toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
                     toast.show();
                     return;
                 }
@@ -150,7 +150,7 @@ public class AddKML extends Activity {
                         if(toBeDeletedPillar==null) {
                             Toast toast = Toast.makeText(getApplicationContext(),"Pillar number not found",Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
+                            //toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
                             toast.show();                         }
                         latLongList.remove(toBeDeletedPillar);
                         String deletePolygon="";
@@ -196,7 +196,7 @@ public class AddKML extends Activity {
                         if(tobeEditedPillar==null) {
                             Toast toast = Toast.makeText(getApplicationContext(),"Pillar number not found",Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
+                            //toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
                             toast.show();
                             editPillarDialog.dismiss();
                         }
@@ -228,13 +228,13 @@ public class AddKML extends Activity {
                                 if(latitude==0) {
                                     Toast toast = Toast.makeText(getApplicationContext(),"Invalid latitude",Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.CENTER, 0, 0);
-                                    toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
+                                    //toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
                                     toast.show();
                                 }
                                 if(longitude==0) {
                                     Toast toast = Toast.makeText(getApplicationContext(),"Invalid longitude",Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.CENTER, 0, 0);
-                                    toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
+                                   // toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
                                     toast.show();
                                 }
                                 return;
@@ -355,11 +355,11 @@ public class AddKML extends Activity {
         List<MapPoint> mapPoints = new ArrayList<>();
         StringBuilder pillarsInfo = new StringBuilder();
         for(MapPoint latlong: latLongList) {
-            MapPoint mapPoint = new MapPoint(latlong.lat,latlong.lon);
+            MapPoint mapPoint = new MapPoint(latlong.lat,latlong.lon,latlong.accuracy);
             mapPoint.setName(latlong.name);
             kml.addMark(mapPoint);
             mapPoints.add(mapPoint);
-            pillarsInfo.append("Pillar "+latlong.name+":\nLat: "+convertLatitud(latlong.lat)+"\nLon: "+convertLongitude(latlong.lon)+"\n\n");
+            pillarsInfo.append(latlong.name+":\nLat: "+convertLatitud(latlong.lat)+"\nLon: "+convertLongitude(latlong.lon)+"\nAcc: "+ latlong.accuracy+"m");
             count++;
         }
         EditText fileName = (EditText) dialog.findViewById(R.id.filename);
@@ -381,17 +381,57 @@ public class AddKML extends Activity {
         }
 
         File f = new File(rootPath + fileName.getText().toString()+".kml");
-        kml.writeFile(f);
-        builder.setMessage("KML file saved in folder Download/MineMapper/").setCancelable(false)
-                .setPositiveButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.setTitle("Success");
-        alert.show();
+        if(f.exists()) {
+            builder.setMessage("KML file already exists in location. Please try a different file name").setCancelable(false)
+                    .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Dialog newDialog = new Dialog(AddKML.this);
+                            newDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            newDialog.setContentView(R.layout.createdialog);
+                            final Button createKML = (Button) findViewById(R.id.createKML);
+                            createKML.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if(latLongList == null || latLongList.isEmpty()) {
+                                        Toast toast = Toast.makeText(getApplicationContext(),"No points added",Toast.LENGTH_SHORT);
+                                        toast.setGravity(Gravity.CENTER, 0, 0);
+                                       // toast.getView().setBackgroundColor(Color.parseColor("#F6AE2D"));
+                                        toast.show();
+                                        return;
+                                    }
+                                    newDialog.show();
+                                    Button createKMLbutton = (Button)newDialog.findViewById(R.id.createKMLButton);
+
+                                    createKMLbutton.setOnClickListener(new View.OnClickListener() {
+                                        @RequiresApi(api = Build.VERSION_CODES.O)
+                                        @Override
+                                        public void onClick(View v) {
+                                            createKMLfile();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.setTitle("File creation failed");
+            alert.show();
+        }
+        else {
+            kml.writeFile(f);
+            builder.setMessage("KML file saved in folder Download/MineMapper/").setCancelable(false)
+                    .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.setTitle("Success");
+            alert.show();
+        }
+
     }
 
 
